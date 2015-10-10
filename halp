@@ -1,0 +1,186 @@
+using System;
+using System.Windows.Forms;
+using System.Collections;
+public class frmMain : Form
+{
+    ArrayList numbers = new ArrayList();
+
+    private Label enterNumber;
+    private TextBox txtEnter;
+    private Button addButton;
+    private Button showButton;
+    private Button closeButton;
+    private Label NumOfElementslbl;
+    private Label sumOflbl;
+    private TextBox txtNumOfElements;
+    private TextBox txtSumOfElements;
+    #region Windows code
+    private void InitializeComponent()
+    {
+            this.enterNumber = new System.Windows.Forms.Label();
+            this.txtEnter = new System.Windows.Forms.TextBox();
+            this.addButton = new System.Windows.Forms.Button();
+            this.showButton = new System.Windows.Forms.Button();
+            this.closeButton = new System.Windows.Forms.Button();
+            this.NumOfElementslbl = new System.Windows.Forms.Label();
+            this.sumOflbl = new System.Windows.Forms.Label();
+            this.txtNumOfElements = new System.Windows.Forms.TextBox();
+            this.txtSumOfElements = new System.Windows.Forms.TextBox();
+            this.SuspendLayout();
+            // 
+            // enterNumber
+            // 
+            this.enterNumber.AutoSize = true;
+            this.enterNumber.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.enterNumber.Location = new System.Drawing.Point(51, 39);
+            this.enterNumber.Name = "enterNumber";
+            this.enterNumber.Size = new System.Drawing.Size(74, 15);
+            this.enterNumber.TabIndex = 0;
+            this.enterNumber.Text = "Enter Number";
+            this.enterNumber.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            // 
+            // txtEnter
+            // 
+            this.txtEnter.Location = new System.Drawing.Point(224, 36);
+            this.txtEnter.Name = "txtEnter";
+            this.txtEnter.Size = new System.Drawing.Size(100, 20);
+            this.txtEnter.TabIndex = 1;
+            // 
+            // addButton
+            // 
+            this.addButton.Location = new System.Drawing.Point(25, 148);
+            this.addButton.Name = "addButton";
+            this.addButton.Size = new System.Drawing.Size(75, 23);
+            this.addButton.TabIndex = 2;
+            this.addButton.Text = "Add";
+            this.addButton.UseVisualStyleBackColor = true;
+            this.addButton.Click += new System.EventHandler(this.add_Click);
+            // 
+            // showButton
+            // 
+            this.showButton.Location = new System.Drawing.Point(130, 147);
+            this.showButton.Name = "showButton";
+            this.showButton.Size = new System.Drawing.Size(75, 23);
+            this.showButton.TabIndex = 3;
+            this.showButton.Text = "Show";
+            this.showButton.UseVisualStyleBackColor = true;
+            this.showButton.Click += new System.EventHandler(this.showButton_Click);
+            // 
+            // closeButton
+            // 
+            this.closeButton.Location = new System.Drawing.Point(236, 148);
+            this.closeButton.Name = "closeButton";
+            this.closeButton.Size = new System.Drawing.Size(75, 23);
+            this.closeButton.TabIndex = 4;
+            this.closeButton.Text = "Close";
+            this.closeButton.UseVisualStyleBackColor = true;
+            this.closeButton.Click += new System.EventHandler(this.closeButton_Click);
+            // 
+            // NumOfElementslbl
+            // 
+            this.NumOfElementslbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.NumOfElementslbl.Location = new System.Drawing.Point(21, 214);
+            this.NumOfElementslbl.Name = "NumOfElementslbl";
+            this.NumOfElementslbl.Size = new System.Drawing.Size(113, 23);
+            this.NumOfElementslbl.TabIndex = 5;
+            this.NumOfElementslbl.Text = "Number of Elements";
+            this.NumOfElementslbl.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // sumOflbl
+            // 
+            this.sumOflbl.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.sumOflbl.Location = new System.Drawing.Point(211, 214);
+            this.sumOflbl.Name = "sumOflbl";
+            this.sumOflbl.Size = new System.Drawing.Size(100, 23);
+            this.sumOflbl.TabIndex = 6;
+            this.sumOflbl.Text = "Sum of Elements";
+            // 
+            // txtNumOfElements
+            // 
+            this.txtNumOfElements.Location = new System.Drawing.Point(25, 242);
+            this.txtNumOfElements.Name = "txtNumOfElements";
+            this.txtNumOfElements.Size = new System.Drawing.Size(100, 20);
+            this.txtNumOfElements.TabIndex = 7;
+            // 
+            // txtSumOfElements
+            // 
+            this.txtSumOfElements.Location = new System.Drawing.Point(211, 242);
+            this.txtSumOfElements.Name = "txtSumOfElements";
+            this.txtSumOfElements.Size = new System.Drawing.Size(100, 20);
+            this.txtSumOfElements.TabIndex = 8;
+            // 
+            // frmMain
+            // 
+            this.ClientSize = new System.Drawing.Size(350, 306);
+            this.Controls.Add(this.txtSumOfElements);
+            this.Controls.Add(this.txtNumOfElements);
+            this.Controls.Add(this.sumOflbl);
+            this.Controls.Add(this.NumOfElementslbl);
+            this.Controls.Add(this.closeButton);
+            this.Controls.Add(this.showButton);
+            this.Controls.Add(this.addButton);
+            this.Controls.Add(this.txtEnter);
+            this.Controls.Add(this.enterNumber);
+            this.Name = "frmMain";
+            this.Load += new System.EventHandler(this.frmMain_Load);
+            this.ResumeLayout(false);
+            this.PerformLayout();
+
+    }
+    #endregion
+    public frmMain()
+    {
+        InitializeComponent();
+    }
+    [STAThread]
+    public static void Main()
+    {
+        frmMain main = new frmMain();
+        Application.Run(main);
+    }
+
+    private void frmMain_Load(object sender, EventArgs e)
+    {
+        InitializeComponent();
+
+    }
+
+
+    private void add_Click(object sender, EventArgs e)
+    {
+        bool flag;
+        int number;
+
+            flag = int.TryParse(txtEnter.Text, out number); //check input
+            if (flag == false)
+            {
+                MessageBox.Show("Numeric data only.", "Input Error");
+                txtEnter.Focus();
+                return;
+            }
+            else
+            {
+
+                numbers.Add(txtEnter.Text);           //add new number
+                txtEnter.Clear();                   //clear it out
+                txtEnter.Focus();                   //get ready for another number
+            }
+        
+    }
+
+    private void showButton_Click(object sender, EventArgs e) //button to show number of 
+                                                                    //elements and the sum of the elements
+    {
+        int sum = 0;
+       foreach (int i in numbers)
+       {
+           sum += i;
+       }
+
+    }
+
+    private void closeButton_Click(object sender, EventArgs e)
+    {
+        Close();
+    }
+}
